@@ -10,8 +10,8 @@ namespace ORM_MiniApp.Repositories.Abstractions.Generic
 {
     public interface IRepository<T> where T : BaseEntity, new()
     {
-        IQueryable<T> GetAll(params string[] includes);
-        IQueryable<T> GetFilter(Expression<Func<T, bool>> expression, params string[] includes);
+        IQueryable<T> GetAllAsync(params string[] includes);
+       Task<IQueryable<T>> GetFilterAsync(Expression<Func<T, bool>> expression, params string[] includes);
 
         Task<T?> GetSingleAsync(Expression<Func<T, bool>> expression, params string[] includes);
         Task<bool> IsExistAsync(Expression<Func<T, bool>> expression, params string[] includes);

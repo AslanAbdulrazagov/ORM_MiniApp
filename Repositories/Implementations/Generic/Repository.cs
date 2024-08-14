@@ -25,7 +25,7 @@ namespace ORM_MiniApp.Repositories.Implementations.Generic
             _context.Set<T>().Remove(entity);
         }
 
-        public IQueryable<T> GetAll(params string[] includes)
+        public IQueryable<T> GetAllAsync(params string[] includes)
         {
             var query = _context.Set<T>().AsQueryable();
 
@@ -37,7 +37,7 @@ namespace ORM_MiniApp.Repositories.Implementations.Generic
             return query;
         }
 
-        public IQueryable<T> GetFilter(Expression<Func<T, bool>> expression, params string[] includes)
+        public async Task<IQueryable<T>> GetFilterAsync(Expression<Func<T, bool>> expression, params string[] includes)
         {
             var query = _context.Set<T>().Where(expression).AsQueryable();
 

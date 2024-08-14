@@ -11,3 +11,4 @@ namespace ORM_MiniApp.Models
         public string Address { get; set; } = null!;
     }
 }
+ 
