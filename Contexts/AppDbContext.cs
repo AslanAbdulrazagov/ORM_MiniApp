@@ -11,6 +11,7 @@ namespace ORM_MiniApp.Contexts
             optionsBuilder.UseSqlServer("Server=LAPTOP-4GGPT8EP\\SQLEXPRESS;Database=ORM;Trusted_Connection=True;");
             base.OnConfiguring(optionsBuilder);
         }
+
         DbSet<Order> Orders { get; set; } = null!;
         DbSet<Payment> Payments { get; set; } = null!;
         DbSet<Product> Products { get; set; } = null!;

@@ -77,7 +77,7 @@ namespace ORM_MiniApp.Services.Implementations
 
         public async Task<List<ProductGetDto>> SearchProducts(string name)
         {
-            
+
             var products = await _productRepository.GetFilterAsync(p => p.Name.Contains(name));
             var productDtos = products.Select(product => new ProductGetDto
             {
@@ -96,16 +96,14 @@ namespace ORM_MiniApp.Services.Implementations
             var productDb = await _productRepository.GetSingleAsync(p => p.Id == product.Id);
             if (productDb == null)
                 throw new NotFoundException($"Can find product with id:{product.Id}");
-            var productDto = new Product()
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                Stock = product.Stock,
-                Description = product.Description,
-                UpdatedDate = DateTime.UtcNow
-            };
-            _productRepository.Update(productDto);
+      
+
+            productDb.Name = product.Name;
+            productDb.Price = product.Price;
+            productDb.Stock = product.Stock;
+            productDb.Description = product.Description;
+            productDb.UpdatedDate = DateTime.UtcNow;
+            _productRepository.Update(productDb);
             await _productRepository.SaveChangesAsync();
         }
     }

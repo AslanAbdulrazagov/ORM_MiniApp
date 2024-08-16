@@ -11,6 +11,7 @@ using ORM_MiniApp.Models;
 using ORM_MiniApp.Services.Implementations;
 using ORM_MiniApp.Repositories.Abstractions;
 using ORM_MiniApp.Repositories.Implementations;
+using ORM_MiniApp.Contexts;
 
 namespace ORM_MiniApp
 {
@@ -20,6 +21,7 @@ namespace ORM_MiniApp
         private static IProductService _productService;
         private static IOrderService _orderService;
         private static IPaymentService _paymentService;
+
 
         //Services.AddScoped<IUserService, UserService>()
 
@@ -40,7 +42,10 @@ namespace ORM_MiniApp
     .AddScoped<IOrderRepository, OrderRepository>()
     .AddScoped<IPaymentRepository, PaymentRepository>()
     .AddScoped<IOrderDetailRepository, OrderDetailRepository>()
+    .AddScoped<AppDbContext>()
                 .BuildServiceProvider();
+
+            
 
             //_userService = serviceProvider.GetService<IUserService>();
             //_productService = serviceProvider.GetService<IProductService>();
@@ -63,16 +68,16 @@ namespace ORM_MiniApp
                     switch (option)
                     {
                         case "1":
-                            await UserOperations();
+                            await UserOperations(serviceProvider);
                             break;
                         case "2":
-                            await ProductOperations();
+                            await ProductOperations(serviceProvider);
                             break;
                         case "3":
-                            await OrderOperations();
+                            await OrderOperations(serviceProvider);
                             break;
                         case "4":
-                            await PaymentOperations();
+                            await PaymentOperations(serviceProvider);
                             break;
                         case "0":
                             return;
@@ -91,8 +96,15 @@ namespace ORM_MiniApp
             }
         }
 
-        private static async Task UserOperations()
+        private static async Task UserOperations(IServiceProvider serviceProvider)
         {
+            using var scope = serviceProvider.CreateScope();
+            _userService = serviceProvider.GetService<IUserService>();
+            _productService = serviceProvider.GetService<IProductService>();
+            _orderService = serviceProvider.GetService<IOrderService>();
+            _paymentService = serviceProvider.GetService<IPaymentService>();
+
+
             Console.Clear();
             Console.WriteLine("1. Register User");
             Console.WriteLine("2. Login User");
@@ -187,8 +199,13 @@ namespace ORM_MiniApp
             }
         }
 
-        private static async Task ProductOperations()
+        private static async Task ProductOperations(IServiceProvider serviceProvider)
         {
+            using var scope = serviceProvider.CreateScope();
+            _userService = serviceProvider.GetService<IUserService>();
+            _productService = serviceProvider.GetService<IProductService>();
+            _orderService = serviceProvider.GetService<IOrderService>();
+            _paymentService = serviceProvider.GetService<IPaymentService>();
             Console.Clear();
             Console.WriteLine("1. Add Product");
             Console.WriteLine("2. Update Product");
@@ -287,8 +304,13 @@ namespace ORM_MiniApp
             }
         }
 
-        private static async Task OrderOperations()
+        private static async Task OrderOperations(IServiceProvider serviceProvider)
         {
+            using var scope = serviceProvider.CreateScope();
+            _userService = serviceProvider.GetService<IUserService>();
+            _productService = serviceProvider.GetService<IProductService>();
+            _orderService = serviceProvider.GetService<IOrderService>();
+            _paymentService = serviceProvider.GetService<IPaymentService>();
             Console.Clear();
             Console.WriteLine("1. Create Order");
             Console.WriteLine("2. Cancel Order");
@@ -380,8 +402,13 @@ namespace ORM_MiniApp
             }
         }
 
-        private static async Task PaymentOperations()
+        private static async Task PaymentOperations(IServiceProvider serviceProvider)
         {
+            using var scope = serviceProvider.CreateScope();
+            _userService = serviceProvider.GetService<IUserService>();
+            _productService = serviceProvider.GetService<IProductService>();
+            _orderService = serviceProvider.GetService<IOrderService>();
+            _paymentService = serviceProvider.GetService<IPaymentService>();
             Console.Clear();
             Console.WriteLine("1. Make Payment");
             Console.WriteLine("2. Get Payments");

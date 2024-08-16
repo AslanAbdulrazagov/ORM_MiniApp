@@ -66,15 +66,12 @@ namespace ORM_MiniApp.Services.Implementations
             var userUp = await _userRepository.GetSingleAsync(u => u.Id == user.Id);
             if (userUp == null)
                 throw new NotFoundException($"User not found with id:{user.Id}");
-            var userDto = new User()
-            {
-                Id = user.Id,
-                FullName = user.FullName,
-                Password = user.Password,
-                Address = user.Address,
-                Email = user.Email
-            };
-            _userRepository.Update(userDto);
+          
+            userUp.Address = user.Address;
+            userUp.Email = user.Email;
+            userUp.Password = user.Password;
+            userUp.Email= user.Email;
+            _userRepository.Update(userUp);
             await _userRepository.SaveChangesAsync();
         }
     }
