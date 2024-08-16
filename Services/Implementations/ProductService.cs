@@ -62,7 +62,7 @@ namespace ORM_MiniApp.Services.Implementations
         public async Task<List<ProductGetDto>> GetProductsAsync()
         {
 
-            var products = await _productRepository.GetAllAsync().ToListAsync();
+            var products = await _productRepository.GetAllAsync();
 
             var productDtos = products.Select(product => new ProductGetDto
             {
