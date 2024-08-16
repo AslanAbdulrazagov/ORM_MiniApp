@@ -12,5 +12,6 @@ namespace ORM_MiniApp.Services.Interfaces
 
         Task<List<Order>> GetOrders();
         Task AddOrderDetail(OrderDetailDto orderDetailDto);
+        Task<List<OrderDetailDto>> GetOrderDetailsByOrderId(int orderId);
     }
 }
